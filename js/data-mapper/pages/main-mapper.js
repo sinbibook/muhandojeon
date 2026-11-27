@@ -134,14 +134,9 @@
 
     renderSlides('[data-main-gallery-slides]', pool, '펜션 전경');
 
-    // .img_box 는 img01 / img02 2장 고정 레이아웃.
-    // 크롤러가 원본 .img_box 2장에 category:'img_box' 마커를 달아 about[0].images 끝에 담는다.
-    // pool 은 URL 중복을 지우므로 여기서 뽑으면 슬라이더와 겹치는 컷이 사라진다 → 원본 배열에서 읽는다.
-    // 마커가 없는 기존 데이터는 예전처럼 pool 뒤쪽에서 뽑는다.
+    // 소개 블록 첫 이미지는 본문 사진이고, 다음 두 장은 조각컷이다.
     var about0 = (this.getSection().about || [])[0];
-    var marked = this.getSelectedImages(this.pickImgBox((about0 && about0.images) || []));
-    var boxImages =
-      marked.length >= 2 ? marked.slice(0, 2) : pool.length > 3 ? pool.slice(-2) : pool.slice(0, 2);
+    var boxImages = this.getSelectedImages((about0 && about0.images) || []).slice(1, 3);
 
     document.querySelectorAll('[data-main-img-box]').forEach(function (box) {
       ['img01', 'img02'].forEach(function (cls, i) {

@@ -151,15 +151,11 @@
 
     renderSlides('[data-room-gallery-slides]', images, '객실 이미지');
 
-    // 원본 .img_box 2장은 크롤러가 category:'img_box' 마커로 담는다.
-    // 마커가 없는 기존 데이터는 예전처럼 갤러리 뒤에서 2장을 뽑는다.
-    var marked = this.getSelectedImages(this.pickImgBox(rawGallery));
-    var boxImages =
-      marked.length >= 2
-        ? marked.slice(0, 2)
-        : images.length > 3
-        ? images.slice(-2)
-        : images.slice(0, 2);
+    // 외경 앞 두 장은 조각컷, 세 번째는 와이드다.
+    var exterior = this.getSelectedImages(((rt && rt.images) || []).filter(function (im) {
+      return im.category === 'roomtype_exterior';
+    }));
+    var boxImages = exterior.slice(0, 2);
     document.querySelectorAll('[data-room-img-box]').forEach(function (box) {
       ['img01', 'img02'].forEach(function (cls, i) {
         var el = box.querySelector('.' + cls);
@@ -201,13 +197,15 @@
   // MAPPER: 객실 평면도. 크롤러가 평면도 영역에서 찾은 이미지만 노출한다.
   // 일반 객실 사진(interior/thumbnail/exterior)을 평면도로 대체하지 않는다.
   // 평면도가 없으면 제목까지 포함해 영역 전체를 숨긴다.
-  // MAPPER: roomtypes[current] roomtype_exterior[0] → [data-room-wide-image]
+  // MAPPER: roomtypes[current] roomtype_exterior[2] → [data-room-wide-image]
   // 원본 객실상세의 평면도 "앞"에 오는 와이드 객실 사진이다. 없으면 영역째 숨긴다.
   RoomMapper.prototype.mapWideImage = function (roomtype) {
     var section = document.querySelector('[data-room-wide-section]');
     if (!section) return;
-    var images = roomtype ? this.getRoomtypeImages(roomtype, 'roomtype_exterior') : [];
-    var image = images[0];
+    var images = this.getSelectedImages(((roomtype && roomtype.images) || []).filter(function (im) {
+      return im.category === 'roomtype_exterior';
+    }));
+    var image = images[2] || images[0];
     if (!image || !image.url) {
       section.style.display = 'none';
       return;
