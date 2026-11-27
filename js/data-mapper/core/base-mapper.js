@@ -143,7 +143,7 @@
     if (!images || !images.length) return [];
     return images
       .filter(function (img) {
-        return img.isSelected;
+        return img && img.isSelected && !img.isDeleted;
       })
       .sort(function (a, b) {
         return a.sortOrder - b.sortOrder;

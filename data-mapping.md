@@ -445,7 +445,7 @@ property.facilities[i]
 | `data-main-hero-slides`         | `.sub_visual_wide` 슬라이더                            | `hero.images[isSelected]`                                                               | 갤러리 pool → placeholder   |
 | `data-main-gallery-slides`      | `.sub_img_sld` 슬라이더                                | 갤러리 pool                                                                             | placeholder                 |
 | `data-main-gallery-description` | `.sld_txt > p`                                         | `getPropertyDescription()` = `customFields.property.description` → `property.description` | `property.subtitle`         |
-| `data-main-img-box`             | `.img_box`의 `.img01` / `.img02`                       | `about[0].images` 중 `description:'img_box'` **2장** (없으면 갤러리 pool 뒤에서 2장)       | placeholder                 |
+| `data-main-img-box`             | `.img_box`의 `.img01` / `.img02`                       | `about[0].images` 중 선택된 이미지 두 번째·세 번째       | placeholder                 |
 | `data-main-about-blocks`        | `.sub_txt_box` 반복 컨테이너                           | `about[]` 전체                                                                          | 블록 없으면 미노출          |
 | `data-booking-link`             | `.btn_reserve` 예약하기                                | `property.realtimeBookingId`                                                            | (header-footer-mapper 담당) |
 
@@ -485,11 +485,8 @@ about[].images[isSelected] 평탄화
 
 `.sub_txt_box.is-reverse`는 클래스 2개라 미디어쿼리의 `.sub_txt_box`보다 우선한다.
 
-`.img_box` 이미지는 `about[0].images` 중 `description: 'img_box'` 마커가 달린 2장이다. 크롤러가 원본 `.img_box` 2장에 마커를 달아 배열 끝에 담는다.
-
-마커를 쓰는 이유: 원본이 슬라이더와 `.img_box` 에 같은 컷을 쓰는 경우가 있어 URL 로는 구분할 수 없다. pool 은 URL 중복을 제거하므로 pool 에서 뽑으면 그 컷이 사라져 원본과 다른 사진이 나온다.
-
-마커가 달린 이미지는 갤러리 pool(슬라이더)에서 제외한다. 마커가 없으면(규약 이전 데이터) 예전처럼 pool 뒤에서 2장을 뽑는다.
+`.img_box`는 첫 소개 블록에서 선택한 두 번째·세 번째 이미지다. 첫 번째는 소개 본문에 쓰인다.
+원본 임포트 시 조각컷은 `img_box` 설명으로 표시해 갤러리 슬라이더에서는 제외한다.
 
 ### 매핑하지 않는 영역 (원본 하드코딩 유지)
 
@@ -615,14 +612,14 @@ URL 중복은 제거한다. `layoutMap.sections`가 빈 배열로 내려오는 �
 | `data-room-hero-slides`         | 히어로 슬라이더                                                                | `roomtypes[current]` `roomtype_interior` (노출 + sortOrder, 백오피스 첨부 순서)        | `room[id].hero.images` → thumbnail + exterior |
 | `data-room-gallery-slides`      | `.sub_img_sld` 슬라이더                                                        | `roomtypes[current]` `roomtype_interior` (노출 + sortOrder, 백오피스 첨부 순서)        | `room[id].gallery.images` → `roomtype_thumbnail`   |
 | `data-room-gallery-description` | `.sld_txt > p`                                                                 | `room[id].gallery.description`                                               | `당신만을 위한 특별한 휴식 공간 / {숙소명}입니다.` |
-| `data-room-img-box`             | `.img_box`의 `.img01` / `.img02`                                               | `gallery.images` 중 `description:'img_box'` **2장** (없으면 갤러리 뒤에서 2장)  | placeholder                                        |
+| `data-room-img-box`             | `.img_box`의 `.img01` / `.img02`                                               | 선택된 `roomtype_exterior` 첫 번째·두 번째 이미지  | placeholder                                        |
 | `data-room-base-occupancy`      | 표 기준 인원                                                                   | `rooms[j].baseOccupancy`                                                     | `-`                                                |
 | `data-room-max-occupancy`       | 표 최대 인원                                                                   | `rooms[j].maxOccupancy`                                                      | `-`                                                |
 | `data-room-structure`           | 표 유형                                                                        | `formatRoomStructure(rooms[j])` (예: `독채/ 침대룸 화장실 거실 온돌룸 주방`) | `-`                                                |
 | `data-room-size-pyeong`         | 표 평형                                                                        | `toPyeong(rooms[j].size)`                                                    | `-`                                                |
 | `data-room-amenities`           | 표 아래 집기품목                                                               | `rooms[j].amenities.join(', ')`                                              | 비면 `ul` 숨김                                     |
 | `data-room-wide-section`        | 하단 와이드 객실 사진 영역                                                     | 이미지 없으면 미노출                                                         | —                                                  |
-| `data-room-wide-image`          | 와이드 객실 사진                                                               | `roomtypes[current]` `roomtype_exterior[0]`                                  | —                                                  |
+| `data-room-wide-image`          | 와이드 객실 사진                                                               | `roomtypes[current]` `roomtype_exterior[2]` → `[0]`                                  | —                                                  |
 | `data-room-floorplan-section`   | 객실 평면도 영역 전체                                                          | 평면도 없으면 미노출                                                         | —                                                  |
 | `data-room-floorplan-image`     | 평면도 `<img>`                                                                 | `getRoomFloorplanImage()`                                                    | —                                                  |
 | `data-room-list-nav`            | `.sub_cate_wrap ul`                                                            | `roomtypes[]`, 현재 객실 `.on`                                               | —                                                  |
