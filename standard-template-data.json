@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "version": "1.6.0",
-    "generatedAt": "2026-11-27T09:02:25.133100785Z",
+    "version": "1.7.0",
+    "generatedAt": "2026-11-27T09:03:48.186912320Z",
     "templateType": "trip_c2",
     "propertyId": "d95dca0c-a047-4b83-b79d-c3bb03004e7b",
     "homepageId": "01a20b84-b4db-7a61-955d-5d0feba1ec7e"
@@ -1972,17 +1972,9 @@
                 "title": "Traffic Info",
                 "images": [
                   {
-                    "id": "01a20b84-f216-7e98-976a-069664f55f1b",
-                    "url": "https://jlnjajtcnyqupfaqjerz.supabase.co/storage/v1/object/public/app-images/homepage/01a20b84-b4db-7a61-955d-5d0feba1ec7e/directions_hero/1795489581266-qegeojhtc2.jpg",
+                    "id": "01a21c3f-13da-79a4-8221-0f97f295f22a",
+                    "url": "https://jlnjajtcnyqupfaqjerz.supabase.co/storage/v1/object/public/app-images/homepage/01a20b84-b4db-7a61-955d-5d0feba1ec7e/directions_hero/1795770224928-fl5uoc0wjx.jpg",
                     "sortOrder": 0,
-                    "description": "",
-                    "isSelected": true,
-                    "blockId": null
-                  },
-                  {
-                    "id": "01a20b84-f21f-75c8-965e-5a7e52bb1a92",
-                    "url": "https://jlnjajtcnyqupfaqjerz.supabase.co/storage/v1/object/public/app-images/homepage/01a20b84-b4db-7a61-955d-5d0feba1ec7e/directions_hero/1795489581360-1lkhzfih2e.jpg",
-                    "sortOrder": 1,
                     "description": "",
                     "isSelected": true,
                     "blockId": null
